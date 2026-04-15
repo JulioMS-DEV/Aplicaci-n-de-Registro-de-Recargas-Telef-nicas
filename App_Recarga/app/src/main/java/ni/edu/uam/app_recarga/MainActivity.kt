@@ -28,6 +28,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RechargeScreen(modifier: Modifier = Modifier) {
     // --- ESTADOS (Preparados para Integrante 2 y 3) ---
@@ -79,13 +80,51 @@ fun RechargeScreen(modifier: Modifier = Modifier) {
         // ============================================================
         // SECCIÓN PARA INTEGRANTE 2: Selector y Acción
         // ============================================================
-        
-        // TODO: Implementar aquí el Selector de Compañía (DropdownMenu o similares)
-        // Usar la variable 'selectedCompany' y la lista 'companies'
-        
-        // TODO: Implementar aquí el Botón de Registro
-        // El botón debe validar que 'phoneNumber', 'amount' y 'selectedCompany' no estén vacíos.
-        // Al registrar, cambiar 'showResult = true' para el Integrante 3.
+        var expanded by remember { mutableStateOf(false) }
+
+        ExposedDropdownMenuBox(
+            expanded = expanded,
+            onExpandedChange = { expanded = !expanded },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            OutlinedTextField(
+                value = selectedCompany,
+                onValueChange = {},
+                readOnly = true,
+                label = { Text("Seleccionar Compañía") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
+                modifier = Modifier.menuAnchor().fillMaxWidth()
+            )
+
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false }
+            ) {
+                companies.forEach { company ->
+                    DropdownMenuItem(
+                        text = { Text(company) },
+                        onClick = {
+                            selectedCompany = company
+                            expanded = false
+                        },
+                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                    )
+                }
+            }
+        }
+
+        Button(
+            onClick = {
+                // Validación de campos (no vacíos)
+                if (phoneNumber.isNotBlank() && amount.isNotBlank() && selectedCompany.isNotBlank()) {
+                    showResult = true
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Registrar Recarga")
+        }
 
         // ============================================================
         // SECCIÓN PARA INTEGRANTE 3: Resultado Visual
