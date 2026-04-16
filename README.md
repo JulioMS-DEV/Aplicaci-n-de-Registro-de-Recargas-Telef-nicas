@@ -42,11 +42,3 @@ La arquitectura de la aplicación se divide en tres pilares de responsabilidad:
 1.  **Clonar:** `git clone [URL-del-repositorio]`
 2.  **Importar:** Abrir la carpeta raíz en Android Studio.
 3.  **Build:** Sincronizar Gradle y ejecutar en emulador o dispositivo físico.
-
----
-
-### ¿Qué se mejoró?
-* **Títulos más impactantes:** Usé términos como "Registro Inteligente" y "Arquitectura de UI".
-* **Estructura de puntos:** El contenido es más fácil de leer "de un vistazo" (scannability).
-* **Lenguaje Técnico:** Cambié "cosas utilizadas" por "Stack Tecnológico" y "Decisiones de Ingeniería", lo cual es mucho más valorado en el ámbito de desarrollo de software.
-* **Contexto de Desarrollo:** Añadí menciones a "Programación Declarativa" y "Dark Mode".
